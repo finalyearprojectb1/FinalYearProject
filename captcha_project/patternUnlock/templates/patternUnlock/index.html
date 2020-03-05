@@ -8,9 +8,7 @@
 <script>  
 $(document).ready(function () {
     var pattern = {{ pattern | safe }};
-    console.log(pattern);
     document.getElementById("series").innerHTML="Please follow this pattern "+pattern;
-    var a="vbgbg";
     var can = $("#canvas")[0],
     ctx = can.getContext('2d'),
     wid = can.width
@@ -58,7 +56,7 @@ $(document).ready(function () {
         }
         ctx.stroke();
     }
-    webkitRequestAnimationFrame(draw);
+    requestAnimationFrame(draw);
 })();
 
 //This function saves instance of each circle on canvas and their respective properties
