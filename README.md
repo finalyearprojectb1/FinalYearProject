@@ -6,3 +6,6 @@ This project aims at building an interactive mobile friendly CAPTCHA system simi
 - Generation of random series using DFS
 - HTML canvas element along with JS to build 3 * 3 grid
 - Django framework to work with python and HTML
+
+#### Excecution
+  python manage.py runserver
