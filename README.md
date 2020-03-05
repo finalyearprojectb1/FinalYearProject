@@ -8,4 +8,5 @@ This project aims at building an interactive mobile friendly CAPTCHA system simi
 - Django framework to work with python and HTML
 
 #### Excecution
-  python manage.py runserver
+Within the project folder, run the following command <br/>
+***python manage.py runserver***
