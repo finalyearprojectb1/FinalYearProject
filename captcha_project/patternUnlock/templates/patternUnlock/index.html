@@ -8,7 +8,16 @@
 <script>  
 $(document).ready(function () {
     var pattern = {{ pattern | safe }};
-    document.getElementById("series").innerHTML="Please follow this pattern "+pattern;
+                  
+    //alias-array of 9 random numbers. aliaspat-holds correct pattern with reference to alias array
+    alias = [];
+    aliaspat = [];
+    for(var k=0;k<9;k++)
+        alias.push(Math.floor(Math.random()*(100-1)+1));
+    for(var t=0;t<pattern.length;t++)
+        aliaspat[t] = alias[pattern[t]];
+    
+    document.getElementById("series").innerHTML="Please follow this pattern "+aliaspat;
     var can = $("#canvas")[0],
     ctx = can.getContext('2d'),
     wid = can.width
@@ -42,6 +51,13 @@ $(document).ready(function () {
 
     for (var i = 0; i < circles.length; i++) {
         circles[i].draw(ctx);
+        //get position of each circle to draw number
+        var pos = circles[i].position();
+        //set style and colour
+        ctx.fillStyle = "#000";
+        ctx.font = "bold 25pt Calibri";
+        //draw the text into the circle
+        ctx.fillText(alias[i],pos.x-10,pos.y+8);
     }
     
     if (dragging && selCircs.length > 1) {
