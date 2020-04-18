@@ -43,6 +43,24 @@ $(document).ready(function () {
     for (var i = 0; i < circles.length; i++) {
         circles[i].draw(ctx);
     }
+    for(var i =0;i < pattern.length-1; i++){
+        var start = circles[pattern[i]].position();
+        var end = circles[pattern[i+1]].position();
+        
+        var gradient = ctx.createLinearGradient(start.x, start.y, end.x, end.y);
+        gradient.addColorStop("0", 'rgba(174, 182, 191,1.0)');
+        gradient.addColorStop("0.5" ,'rgba(93, 109, 126 ,1.0)');
+        gradient.addColorStop("1.0", "rgba(52, 73, 94 ,1.0)");
+
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = gradient;
+
+        ctx.beginPath();
+        ctx.moveTo(start.x,start.y);
+        ctx.lineTo(end.x,end.y);
+
+        ctx.stroke();
+    }
 
     if (dragging && selCircs.length > 1) {
         var pos = selCircs[0].circ.position();
