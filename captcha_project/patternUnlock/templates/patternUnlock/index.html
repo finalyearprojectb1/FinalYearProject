@@ -60,6 +60,15 @@ $(document).ready(function () {
         ctx.fillText(alias[i],pos.x-10,pos.y+8);
     }
     
+    //animation of moving digits
+    for (var i = 0; i < 10; i++) {
+        //setting properties fr digits
+        ctx.fillStyle = "#000";
+        ctx.font = "bold 25pt Calibri";
+        //getting random number within 100, and writing it at a random co-ordinate
+        ctx.fillText(Math.floor(Math.random()*(100-1)+1),Math.floor(Math.random()*(250-1)+50),Math.floor(Math.random()*(250-1)+50));
+    }
+    
     if (dragging && selCircs.length > 1) {
         var pos = selCircs[0].circ.position();
         ctx.beginPath();
