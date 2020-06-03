@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head> 
+        
     </head>
     <body>
 
@@ -8,11 +9,10 @@
 <script>  
 $(document).ready(function () {
     var pattern = {{ pattern | safe }};
-                  
     //alias-array of 9 random numbers. aliaspat-holds correct pattern with reference to alias array
     alias = [];
     aliaspat = [];
-    for(var k=0;k<9;k++)
+    for(var k=0;k<{{ total_nos }};k++)
         alias.push(Math.floor(Math.random()*(100-1)+1));
     for(var t=0;t<pattern.length;t++)
         aliaspat[t] = alias[pattern[t]];
@@ -35,10 +35,10 @@ $(document).ready(function () {
 
 (function init() {
     //var rad = (wid - pad * 4) / 4;
-    rad = 30;
+    rad = 20;
 
-    for (var i = 1; i <= 3; i++) {
-        for (var j = 1; j <= 3; j++) {
+    for (var i = 1; i <= {{ row }}; i++) {
+        for (var j = 1; j <= {{ column }}; j++) {
             circles.push(new Circle({
                 x: j * (pad + rad),
                 y: i * (pad + rad)
@@ -55,7 +55,7 @@ $(document).ready(function () {
         var pos = circles[i].position();
         //set style and colour
         ctx.fillStyle = "#000";
-        ctx.font = "bold 25pt Calibri";
+        ctx.font = "bold 15pt Calibri";
         //draw the text into the circle
         ctx.fillText(alias[i],pos.x-10,pos.y+8);
     }
@@ -64,10 +64,12 @@ $(document).ready(function () {
     for (var i = 0; i < 10; i++) {
         //setting properties fr digits
         ctx.fillStyle = "#000";
-        ctx.font = "bold 25pt Calibri";
+        ctx.font = "bold 20pt Calibri";
         //getting random number within 100, and writing it at a random co-ordinate
         ctx.fillText(Math.floor(Math.random()*(100-1)+1),Math.floor(Math.random()*(250-1)+50),Math.floor(Math.random()*(250-1)+50));
     }
+
+    
     
     if (dragging && selCircs.length > 1) {
         var pos = selCircs[0].circ.position();
@@ -122,6 +124,25 @@ function Circle(center, radius, fill, stroke, hover, active) {
     
 }
 
+//to draw arrows
+function draw_arrow(ctx,start,end,gradient){
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = gradient;
+
+        var headlen = 10; // length of head in pixels
+        var dx = end.x - start.x;
+        var dy = end.y - start.y;
+        var angle = Math.atan2(dy, dx);
+
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.lineTo(end.x - headlen * Math.cos(angle - Math.PI / 6), end.y - headlen * Math.sin(angle - Math.PI / 6));
+        ctx.moveTo(end.x, end.y);
+        ctx.lineTo(end.x - headlen * Math.cos(angle + Math.PI / 6), end.y - headlen * Math.sin(angle + Math.PI / 6));
+        ctx.stroke();
+}
+
+
 $("#canvas").mousemove(function(e) {
     for (var i = 0; i < circles.length; i++) {
         var cir = circles[i];
@@ -163,7 +184,8 @@ $("#canvas").mouseup(function(e) {
 });
         </script>
         <h3 id="series"></h3>
-        <canvas id="canvas" width="400" height="400"></canvas>
+        <canvas id="canvas" width="500" height="500"></canvas>
+        <button onclick="location.reload();" style="float: left;">Refresh</button>
 
        
     </body>
