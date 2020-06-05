@@ -9,10 +9,13 @@
 <script>  
 $(document).ready(function () {
     var pattern = {{ pattern | safe }};
+    var row = {{ row }};
+    var column = {{ column }};
+    var total_nos = {{ total_nos }};
     //alias-array of 9 random numbers. aliaspat-holds correct pattern with reference to alias array
     alias = [];
     aliaspat = [];
-    for(var k=0;k<{{ total_nos }};k++)
+    for(var k=0;k<total_nos;k++)
         alias.push(Math.floor(Math.random()*(100-1)+1));
     for(var t=0;t<pattern.length;t++)
         aliaspat[t] = alias[pattern[t]];
@@ -37,8 +40,8 @@ $(document).ready(function () {
     //var rad = (wid - pad * 4) / 4;
     rad = 20;
 
-    for (var i = 1; i <= {{ row }}; i++) {
-        for (var j = 1; j <= {{ column }}; j++) {
+    for (var i = 1; i <= row; i++) {
+        for (var j = 1; j <= column; j++) {
             circles.push(new Circle({
                 x: j * (pad + rad),
                 y: i * (pad + rad)
@@ -66,7 +69,7 @@ $(document).ready(function () {
         ctx.fillStyle = "#000";
         ctx.font = "bold 20pt Calibri";
         //getting random number within 100, and writing it at a random co-ordinate
-        ctx.fillText(Math.floor(Math.random()*(100-1)+1),Math.floor(Math.random()*(250-1)+50),Math.floor(Math.random()*(250-1)+50));
+        ctx.fillText(Math.floor(Math.random()*(100-1)+1),Math.floor(Math.random()*(75*column)+40),Math.floor(Math.random()*(75*row)+50));
     }
 
     
