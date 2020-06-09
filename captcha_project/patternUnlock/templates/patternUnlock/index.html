@@ -2,7 +2,7 @@
 <html>
     <head> 
         <style>
-            .container {
+            #container {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
@@ -18,7 +18,7 @@ $(document).ready(function () {
     var pattern = {{ pattern | safe }};
     var row = {{ row }};
     var column = {{ column }};
-    var total_nos = {{ total_nos }};
+    var total_nos = row*column;
     //alias-array of 9 random numbers. aliaspat-holds correct pattern with reference to alias array
     alias = [];
     aliaspat = [];
@@ -216,11 +216,20 @@ $("#canvas").mouseup(function(e) {
             var index = correctPath[i];
             if (selCircs[i].index !== index) valid = false;
         }
-        if (valid) alert('correct!');
-        else alert('Wrong pattern');
-            
+        if (valid){
+            var fname = document.forms["theForm"]["fname"].value;
+            var lname = document.forms["theForm"]["lname"].value;
+            if (fname == "" | lname=="") {
+                alert("Please fill the details first");
+            }
+            else {
+                alert('Correct pattern!'); 
+                document.getElementById("container").innerHTML ="<h2>Welcome to the Home page<h2>";
+            }
+        }
+        else { alert('Wrong pattern! Please try again'); location.reload(); }   
     }
-    else alert('Wrong pattern');
+    else { alert('Wrong pattern! please try again'); location.reload(); }
     
     // reset selection
     for (var i = 0; i < selCircs.length; i++)
@@ -230,13 +239,12 @@ $("#canvas").mouseup(function(e) {
 });
 });
         </script>
-        <div class="container">
-            <form action="/action_page.php">
+        <div id="container">
+            <form id="theForm" action="/action_page.php">
                 <label for="fname">First name:</label><br>
                 <input type="text" id="fname" name="fname"><br>
                 <label for="lname">Last name:</label><br>
                 <input type="text" id="lname" name="lname"><br><br>
-                <input type="submit" value="Submit">
               </form> 
             <h3>Please trace the following pattern to continue</h3>
             <canvas id="canvas" width="500" height="500"></canvas>
