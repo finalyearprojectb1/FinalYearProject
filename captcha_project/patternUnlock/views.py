@@ -50,7 +50,10 @@ def index(request):
 def dfs(graph, node, visited):
     random.shuffle(graph[node])
     if node not in visited:
-        visited.append(node)
+        if len(visited)==0:
+            visited.append(node)
+        elif (node in graph[visited[-1]]):
+            visited.append(node)
         for n in graph[node]:
             dfs(graph,n, visited)
     k = random.randint(4,9)
